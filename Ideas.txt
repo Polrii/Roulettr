@@ -1,1 +1,12 @@
-Make a method where for every round you loose you gain a little more profit. This will make it so that getting back the money will be easier.
+Make a method where for every round you loose you gain a little more profit. 
+This will make it so that getting back the money will be easier.
+
+Investments:    Profit:
+1: 3.2          3.2
+2: 4.8          1.6
+3: 8.8          0.8
+4: 17.2         0.4
+5: 34.2         0.2
+6: 68.3         0.1
+
+Investment formula: PreviousBet*2 - Profit
