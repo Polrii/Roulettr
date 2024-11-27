@@ -2,10 +2,13 @@ import random
 import time
 import json
 
-starting_balance = 1000
+starting_balance = 10000
 balance = starting_balance
 stop_loss = 6
-betting_order = [3.2, 4.8, 8.8, 17.2, 34.2, 68.3]
+betting_order = [64, 96, 176, 340, 677, 1353.25]
+
+#betting_order = [3.2, 4.8, 8.8, 17.2, 34.2, 68.3]
+
 json_path = "Data.json"
 
 
@@ -15,6 +18,7 @@ max_money = balance
 lost_rounds = 0
 current_round = 0
 current_bet = betting_order[lost_rounds]
+previous_bet = current_bet
 data = {}
 
 with open(json_path, 'w') as file:
@@ -42,7 +46,8 @@ with open(json_path, 'w') as file:
                 
             
             print(f"Rounds played: {current_round}     Current balance: {round(balance, 2)}     Ball on: {choice}")
-            data[current_round] = {"Current balance": round(balance, 2), "Ball on": choice}
+            data[current_round] = {"Current balance": round(balance, 2), "Ball on": choice, "Bet": previous_bet}
+            previous_bet = current_bet
             #time.sleep(0.1)
         print(f"You lost all your money in {current_round} rounds, and spent {thousand_rounds} in positive, with a maximum of {max_money}")
                 

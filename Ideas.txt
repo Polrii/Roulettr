@@ -10,3 +10,18 @@ Investments:    Profit:
 6: 68.3         0.1
 
 Investment formula: PreviousBet*2 - Profit
+Six time loss money: 136.5
+Theoretical Probabilities:
+ - 26 first wins  --> 83.2
+ - 13 second wins --> 20.8
+ - 6 third wins   -->  4.8
+ - 3 fourth wins  -->  1.2
+ - 2 fifth wins   -->  0.4
+ - 1 sixth win    -->  0.1
+TOTAL:               110.5
+
+
+
+
+We can probably make some kind of function to find the profit and profit decrease needed to get the total higher than 136.5
+26*p1 + 13*p2 6*p3 + 3*p4 + 2*p5 + p6
