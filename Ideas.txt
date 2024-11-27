@@ -1,0 +1,1 @@
+Make a method where for every round you loose you gain a little more profit. This will make it so that getting back the money will be easier.
