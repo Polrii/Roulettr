@@ -24,4 +24,24 @@ TOTAL:               110.5
 
 
 We can probably make some kind of function to find the profit and profit decrease needed to get the total higher than 136.5
-26*p1 + 13*p2 6*p3 + 3*p4 + 2*p5 + p6
+
+Theoretical profit before loosing six consecutive rounds: 26*p1 + 13*p2 + 6*p3 + 3*p4 + 2*p5 + p6
+Loss when loosing six consecutive rounds: p1 + p1+p2 + 2*p1+p2+p3 + 4*p1+2*p2+p3+p4 + 8*p1+4*p2+2*p3+p4+p5 + 16*p1+8*p2+4*p3+2*p4+p5+p6 =
+= 32*p1 + 16*p2 + 8*p3 + 4*p4 + 2*p5 + p6
+
+
+
+This means that assuming p = profit_multiplier and starting_profit = 3.2:
+
+Theoretical profit before loosing six consecutive rounds: 26*3.2 + 13*3.2*p + 6*3.2*p^2 + 3*3.2*p^3 + 2*3.2*p^4 + 3.2*p^5 = 
+= 83.2 + 41.6*p + 19.2*p^2 + 9.6*p^3 + 6.4*p^4 + 3.2*p^5
+
+Loss when loosing six consecutive rounds: 32*3.2 + 16*3.2*p + 8*3.2*p^2 + 4*3.2*p^3 + 2*3.2*p^4 + 3.2*p^5 =
+= 102.4 + 51.2*p + 25.6*p^2 + 12.8*p^3 + 6.4*p^4 + 3.2*p^5
+
+
+
+Which would mean a stable profit increase would accomplish the equation:
+Theoretical profit = Loss
+83.2 + 41.6*p + 19.2*p^2 + 9.6*p^3 + 6.4*p^4 + 3.2*p^5 = 102.4 + 51.2*p + 25.6*p^2 + 12.8*p^3 + 6.4*p^4 + 3.2*p^5
+The solution: p = -2
