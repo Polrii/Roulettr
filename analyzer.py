@@ -42,7 +42,7 @@ if __name__ == "__main__":
     # Specify the paths to the config file and checkpoint file
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, 'config-feedforward.txt')
-    checkpoint_file = 'Checkpoints/neat-checkpoint-2937'
+    checkpoint_file = 'Checkpoints/neat-checkpoint-2547'
 
     # Analyze the checkpoint
     analyze_checkpoint(checkpoint_file, config_path)
