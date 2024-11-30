@@ -21,12 +21,18 @@ def eval_genomes(genomes, config):
         genome.fitness = 1000  # We establish the balance as the fitness
         lost_rounds = 0
         for answer in numbers:
-            output = net.activate([lost_rounds])
+            raw_output = net.activate([lost_rounds])
+            if 0 <= raw_output[0] <= 1:
+                scaled_output = 0.2 + (raw_output * (50 - 0.2))
+            else:
+                print(f"Output: {raw_output}")
+                quit()
+                
             if 0 < answer < 19:
-                genome.fitness += output[0]
+                genome.fitness += scaled_output[0]
                 lost_rounds = 0
             else:
-                genome.fitness -= output[0]
+                genome.fitness -= scaled_output[0]
                 lost_rounds += 1
                 
 
