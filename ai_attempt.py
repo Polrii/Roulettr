@@ -30,7 +30,7 @@ def eval_genomes(genomes, config):
                 lost_rounds += 1
                 
 
-def save_nn(winner_net, folder="Checkpoints", filename="winning_nn.json"):
+def save_nn(winner_genome, config, folder="Checkpoints", filename="winning_nn.json"):
     """
     Save the neural network in a human-readable JSON format.
     """
@@ -38,8 +38,14 @@ def save_nn(winner_net, folder="Checkpoints", filename="winning_nn.json"):
 
     # Extract weights and biases from the network
     layers = {
-        "input_nodes": len(winner_net.input_nodes),
-        "output_nodes": len(winner_net.output_nodes),
+        "biases": {
+            node_id: {
+                "bias": node.bias,
+                "activation": node.activation,
+                "response": node.response,
+            }
+            for node_id, node in winner_genome.nodes.items()
+        },
         "connections": [
             {
                 "from_node": conn.key[0],
@@ -47,7 +53,7 @@ def save_nn(winner_net, folder="Checkpoints", filename="winning_nn.json"):
                 "weight": conn.weight,
                 "enabled": conn.enabled,
             }
-            for conn in winner_net.connections.values()
+            for conn in winner_genome.connections.values()
         ]
     }
 
@@ -85,7 +91,7 @@ def run(config_file):
     winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
 
     # Save the winning neural network in a readable format
-    save_nn(winner_net)
+    save_nn(winner, config)
 
     node_names = {-1: 'Consecutive Losses', 0: 'Bet'}
     visualize.draw_net(config, winner, True, node_names=node_names)

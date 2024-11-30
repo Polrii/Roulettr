@@ -59,8 +59,22 @@ def plot_species(statistics, view=False, filename=None):
     species_sizes = statistics.get_species_sizes()
 
     plt.figure()
-    for species_id, sizes in species_sizes.items():
-        plt.plot(range(num_generations), sizes, label=f"Species {species_id}")
+
+    if isinstance(species_sizes, dict):  # Handle dictionary format
+        for species_id, sizes in species_sizes.items():
+            # Ensure `sizes` matches `num_generations`
+            sizes = sizes[:num_generations]  # Truncate if too long
+            sizes += [0] * (num_generations - len(sizes))  # Pad with zeros if too short
+            plt.plot(range(num_generations), sizes, label=f"Species {species_id}")
+    elif isinstance(species_sizes, list):  # Handle list format
+        for species_id, sizes in enumerate(species_sizes):
+            # Ensure `sizes` matches `num_generations`
+            sizes = sizes[:num_generations]  # Truncate if too long
+            sizes += [0] * (num_generations - len(sizes))  # Pad with zeros if too short
+            plt.plot(range(num_generations), sizes, label=f"Species {species_id}")
+    else:
+        raise TypeError("Unexpected type for species_sizes: Expected dict or list.")
+
     plt.xlabel("Generation")
     plt.ylabel("Number of Individuals")
     plt.title("Species Sizes")
@@ -71,3 +85,4 @@ def plot_species(statistics, view=False, filename=None):
     if view:
         plt.show()
     plt.close()
+
