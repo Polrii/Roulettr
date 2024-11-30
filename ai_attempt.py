@@ -4,6 +4,7 @@ import neat
 import visualize
 
 import random
+import json
 
 
 def eval_genomes(genomes, config):
@@ -27,6 +28,35 @@ def eval_genomes(genomes, config):
             else:
                 genome.fitness -= output[0]
                 lost_rounds += 1
+                
+
+def save_nn(winner_net, folder="Checkpoints", filename="winning_nn.json"):
+    """
+    Save the neural network in a human-readable JSON format.
+    """
+    os.makedirs(folder, exist_ok=True)  # Ensure the folder exists
+
+    # Extract weights and biases from the network
+    layers = {
+        "input_nodes": len(winner_net.input_nodes),
+        "output_nodes": len(winner_net.output_nodes),
+        "connections": [
+            {
+                "from_node": conn.key[0],
+                "to_node": conn.key[1],
+                "weight": conn.weight,
+                "enabled": conn.enabled,
+            }
+            for conn in winner_net.connections.values()
+        ]
+    }
+
+    # Save to a JSON file
+    save_path = os.path.join(folder, filename)
+    with open(save_path, "w") as f:
+        json.dump(layers, f, indent=4)
+
+    print(f"Winning neural network saved to {save_path}")
 
 
 def run(config_file):
@@ -50,10 +80,12 @@ def run(config_file):
 
     # Display the winning genome.
     print('\nBest genome:\n{!s}'.format(winner))
-
-    # Show output of the most fit genome against training data.
-    print('\nOutput:')
+    
+    # Create the winning neural network
     winner_net = neat.nn.FeedForwardNetwork.create(winner, config)
+
+    # Save the winning neural network in a readable format
+    save_nn(winner_net)
 
     node_names = {-1: 'Consecutive Losses', 0: 'Bet'}
     visualize.draw_net(config, winner, True, node_names=node_names)
