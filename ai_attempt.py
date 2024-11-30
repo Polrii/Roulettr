@@ -9,7 +9,7 @@ import random
 def eval_genomes(genomes, config):
     # Create a list of random numbers
     numbers = []
-    for i in range(400):
+    for i in range(1000):
         numbers.append(random.randint(0, 36))
     
     # Evaluate the genomes
